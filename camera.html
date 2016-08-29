@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <title>Self Camera</title>
+  <style>
+  body{
+  background-image:url(tile1.png);
+  }
+  </style>
+</head>
+<body id="bg">
+   <video id="myVideo" width="400" height="300" autoplay="1" ></video>
+<canvas id="c" hidden></canvas><!--画像のみ出力-->
+<img src="shot.png" onclick="copyFrame()" >
+<br>
+<img id="newImg">
+<img src="rep.png" onclick="rep()">
+   <script type="text/javascript">
+   var cnt=0;
+   var a=0;
+   /*カメラ起動*/
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
+    window.URL = window.URL || window.webkitURL;
+ 
+    var video = document.getElementById('myVideo');
+    var localStream = null;
+    navigator.getUserMedia({video: true, audio: false},
+     function(stream) { // for success case
+      console.log(stream);
+      video.src = window.URL.createObjectURL(stream);
+     },
+     function(err) { // for error case
+      console.log(err);
+     }
+    );
+    
+    /*撮影アクション*/
+    function copyFrame() {
+    var cEle = document.getElementById('c');
+    var cCtx = cEle.getContext('2d');
+    var vEle = document.getElementById('myVideo');
+
+    cEle.width  = vEle.videoWidth;   // canvasの幅と高さを、動画の幅と高さに合わせる
+    cEle.height = vEle.videoHeight;
+
+    cCtx.drawImage(vEle, 0, 0);  // canvasに関数実行時の動画のフレームを描画
+    /*保存用画像化*/
+      var png = cEle.toDataURL();
+  document.getElementById("newImg").src = png;
+  
+  var element = document.createElement('div');
+  a++; 
+element.id="pic"+a; 
+element.innerHTML = png;
+element.hidden="hidden";
+var objBody = document.getElementsByTagName("body").item(0); 
+objBody.appendChild(element);
+
+}
+function rep(){
+cnt++;
+var aa=document.getElementById("pic"+cnt);
+
+if(!aa){
+cnt=1;
+aa=document.getElementById("pic"+cnt);
+}
+document.getElementById("newImg").src =aa.innerHTML;
+
+}
+
+   </script>
+</body>
+</html>

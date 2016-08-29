@@ -1,0 +1,20 @@
+{
+  "name": "KidWebCamera",
+  "description": "KidWebCamera",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "ryoji noma",
+    "url": ""
+  },
+  "permissions": [],
+  "locales": {
+    "en-JP": {
+      "name": "KidWebCamera",
+      "description": "This camera app was made for child."
+    }
+  },
+  "default_locale": "jp-JP",
+  "icons": {
+    "128": "/icon.png"
+  }
+}
